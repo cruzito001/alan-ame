@@ -1,7 +1,23 @@
-import React from "react";
+"use client";
+
+import React, { useState, useEffect } from "react";
 import styles from "./CoreNames.module.css";
+import FloatingMemory from "../FloatingMemory/FloatingMemory";
 
 const CoreNames: React.FC = () => {
+  const [memories, setMemories] = useState<
+    Array<{ top: number; left: number }>
+  >([]);
+
+  useEffect(() => {
+    const generateRandomPosition = () => ({
+      top: Math.random() * window.innerHeight,
+      left: Math.random() * window.innerWidth,
+    });
+
+    setMemories(Array.from({ length: 10 }, generateRandomPosition));
+  }, []);
+
   return (
     <div className={styles.container}>
       <div className={`${styles.glow} ${styles.topGlow}`}></div>
@@ -15,6 +31,14 @@ const CoreNames: React.FC = () => {
         </div>
         <p className={styles.subtitle}>Nuestros Recuerdos</p>
       </div>
+
+      {memories.map((memory, index) => (
+        <FloatingMemory
+          key={index}
+          initialTop={memory.top}
+          initialLeft={memory.left}
+        />
+      ))}
     </div>
   );
 };
