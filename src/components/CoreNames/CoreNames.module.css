@@ -1,0 +1,128 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  padding: 1rem;
+}
+
+.namesContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.name {
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  font-weight: 800;
+  background: linear-gradient(to right, #fff, #94a3b8);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.02em;
+  margin: 0;
+  line-height: 1;
+  opacity: 0;
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+.ampersand {
+  font-size: clamp(2rem, 6vw, 4rem);
+  font-weight: 300;
+  color: #64748b;
+  line-height: 1;
+  opacity: 0;
+  animation: fadeIn 0.8s ease-out forwards;
+  animation-delay: 0.4s;
+}
+
+.subtitle {
+  font-size: clamp(0.875rem, 2.5vw, 1.25rem);
+  color: #94a3b8;
+  font-weight: 300;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin: 0;
+  opacity: 0;
+  animation: fadeInUp 0.8s ease-out forwards;
+  animation-delay: 0.8s;
+}
+
+.glow {
+  position: absolute;
+  width: 40vw;
+  height: 40vw;
+  background: radial-gradient(
+    circle,
+    rgba(148, 163, 184, 0.1) 0%,
+    rgba(148, 163, 184, 0) 70%
+  );
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  opacity: 0.5;
+  mix-blend-mode: screen;
+}
+
+.topGlow {
+  top: 30%;
+  left: 30%;
+}
+
+.bottomGlow {
+  bottom: 0;
+  right: 0;
+  transform: translate(30%, 30%);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (min-width: 768px) {
+  .namesContainer {
+    flex-direction: row;
+    gap: 1rem;
+  }
+
+  .name {
+    font-size: clamp(3rem, 5vw, 5rem);
+  }
+
+  .ampersand {
+    font-size: clamp(2.5rem, 4vw, 4rem);
+  }
+}
