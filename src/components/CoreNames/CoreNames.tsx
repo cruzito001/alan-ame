@@ -3,9 +3,10 @@
 import React, { useState, useEffect } from "react";
 import styles from "./CoreNames.module.css";
 import FloatingMemory from "../FloatingMemory/FloatingMemory";
+import { memories } from "../../data/memories";
 
 const CoreNames: React.FC = () => {
-  const [memories, setMemories] = useState<
+  const [memoryPositions, setMemoryPositions] = useState<
     Array<{ top: number; left: number }>
   >([]);
 
@@ -15,7 +16,9 @@ const CoreNames: React.FC = () => {
       left: Math.random() * window.innerWidth,
     });
 
-    setMemories(Array.from({ length: 10 }, generateRandomPosition));
+    setMemoryPositions(
+      Array.from({ length: memories.length }, generateRandomPosition)
+    );
   }, []);
 
   return (
@@ -32,13 +35,17 @@ const CoreNames: React.FC = () => {
         <p className={styles.subtitle}>Nuestros Recuerdos</p>
       </div>
 
-      {memories.map((memory, index) => (
-        <FloatingMemory
-          key={index}
-          initialTop={memory.top}
-          initialLeft={memory.left}
-        />
-      ))}
+      {memories.map(
+        (memory, index) =>
+          memoryPositions[index] && (
+            <FloatingMemory
+              key={memory.id}
+              initialTop={memoryPositions[index].top}
+              initialLeft={memoryPositions[index].left}
+              memory={memory}
+            />
+          )
+      )}
     </div>
   );
 };

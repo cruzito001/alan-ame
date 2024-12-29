@@ -2,21 +2,26 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./FloatingMemory.module.css";
+import type { Memory } from "../../types/memories";
+import MemoryModal from "../MemoryModal/MemoryModal";
 
 interface FloatingMemoryProps {
   initialTop: number;
   initialLeft: number;
+  memory: Memory;
 }
 
 const FloatingMemory: React.FC<FloatingMemoryProps> = ({
   initialTop,
   initialLeft,
+  memory,
 }) => {
   const memoryRef = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState({
     top: initialTop,
     left: initialLeft,
   });
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const animationRef = useRef<number>();
   const velocityRef = useRef({
     x: Math.random() * 2 - 1,
@@ -58,16 +63,25 @@ const FloatingMemory: React.FC<FloatingMemoryProps> = ({
   }, [initialTop, initialLeft]);
 
   return (
-    <div
-      ref={memoryRef}
-      className={styles.memory}
-      style={{
-        top: `${position.top}px`,
-        left: `${position.left}px`,
-      }}
-    >
-      <div className={styles.inner}></div>
-    </div>
+    <>
+      <div
+        ref={memoryRef}
+        className={styles.memory}
+        style={{
+          top: `${position.top}px`,
+          left: `${position.left}px`,
+        }}
+        onClick={() => setIsModalOpen(true)}
+      >
+        <div className={styles.inner}></div>
+      </div>
+
+      <MemoryModal
+        memory={memory}
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
+    </>
   );
 };
 
