@@ -18,4 +18,44 @@ export const memories: Memories = [
       "/placeholder.svg?height=400&width=600",
     ],
   },
+  {
+    id: "3",
+    title: "Viaje a la Playa",
+    date: "2023-03-20",
+    description: "Ese fin de semana increíble en la playa...",
+    images: [
+      "/placeholder.svg?height=400&width=600",
+      "/placeholder.svg?height=400&width=600",
+    ],
+  },
+  {
+    id: "4",
+    title: "Viaje a la Playa",
+    date: "2023-03-20",
+    description: "Ese fin de semana increíble en la playa...",
+    images: [
+      "/placeholder.svg?height=400&width=600",
+      "/placeholder.svg?height=400&width=600",
+    ],
+  },
+  {
+    id: "5",
+    title: "Viaje a la Playa",
+    date: "2023-03-20",
+    description: "Ese fin de semana increíble en la playa...",
+    images: [
+      "/placeholder.svg?height=400&width=600",
+      "/placeholder.svg?height=400&width=600",
+    ],
+  },
+  {
+    id: "6",
+    title: "Viaje a la Playa",
+    date: "2023-03-20",
+    description: "Ese fin de semana increíble en la playa...",
+    images: [
+      "/placeholder.svg?height=400&width=600",
+      "/placeholder.svg?height=400&width=600",
+    ],
+  },
 ];
