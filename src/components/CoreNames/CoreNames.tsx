@@ -5,21 +5,48 @@ import styles from "./CoreNames.module.css";
 import FloatingMemory from "../FloatingMemory/FloatingMemory";
 import { memories } from "../../data/memories";
 
-const CoreNames: React.FC = () => {
+interface CoreNamesProps {
+  initialYear: number;
+}
+
+const CoreNames: React.FC<CoreNamesProps> = ({ initialYear }) => {
+  const [selectedYear, setSelectedYear] = useState(initialYear);
   const [memoryPositions, setMemoryPositions] = useState<
     Array<{ top: number; left: number }>
   >([]);
 
   useEffect(() => {
+    const handleYearChange = (event: CustomEvent<number>) => {
+      setSelectedYear(event.detail);
+    };
+
+    window.addEventListener("yearChange", handleYearChange as EventListener);
+    return () => {
+      window.removeEventListener(
+        "yearChange",
+        handleYearChange as EventListener
+      );
+    };
+  }, []);
+
+  useEffect(() => {
+    const filteredMemories = memories.filter(
+      (memory) => new Date(memory.date).getFullYear() === selectedYear
+    );
+
     const generateRandomPosition = () => ({
-      top: Math.random() * window.innerHeight,
-      left: Math.random() * window.innerWidth,
+      top: Math.random() * (window.innerHeight - 100),
+      left: Math.random() * (window.innerWidth - 100),
     });
 
     setMemoryPositions(
-      Array.from({ length: memories.length }, generateRandomPosition)
+      Array.from({ length: filteredMemories.length }, generateRandomPosition)
     );
-  }, []);
+  }, [selectedYear]);
+
+  const filteredMemories = memories.filter(
+    (memory) => new Date(memory.date).getFullYear() === selectedYear
+  );
 
   return (
     <div className={styles.container}>
@@ -35,7 +62,7 @@ const CoreNames: React.FC = () => {
         <p className={styles.subtitle}>Nuestros Recuerdos</p>
       </div>
 
-      {memories.map(
+      {filteredMemories.map(
         (memory, index) =>
           memoryPositions[index] && (
             <FloatingMemory

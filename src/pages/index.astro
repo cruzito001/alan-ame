@@ -1,11 +1,20 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import CoreNames from '../components/CoreNames/CoreNames';
+import Header from '../components/Header/Header';
+import { memories } from '../data/memories';
+
+const years = [...new Set(memories.map(memory => 
+  new Date(memory.date).getFullYear()
+))].sort((a, b) => b - a);
+
+const initialYear = Math.max(...years);
 ---
 
 <Layout title="Alan y América - Nuestros Recuerdos">
+  <Header client:load years={years} initialYear={initialYear} />
   <main>
-    <CoreNames client:load />
+    <CoreNames client:load initialYear={initialYear} />
   </main>
 </Layout>
 
