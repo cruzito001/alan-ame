@@ -41,7 +41,11 @@ const MemoryModal: React.FC<MemoryModalProps> = ({
   return (
     <div className={styles.overlay} onClick={onClose}>
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
-        <button className={styles.closeButton} onClick={onClose}>
+        <button
+          className={styles.closeButton}
+          onClick={onClose}
+          aria-label="Cerrar"
+        >
           <X size={24} />
         </button>
 
@@ -49,45 +53,52 @@ const MemoryModal: React.FC<MemoryModalProps> = ({
           <h2 className={styles.title}>{memory.title}</h2>
           <time className={styles.date}>{formattedDate}</time>
 
-          <div className={styles.imageContainer}>
-            {memory.images.length > 1 && (
-              <button
-                className={`${styles.navButton} ${styles.prevButton}`}
-                onClick={prevImage}
-              >
-                <ChevronLeft size={24} />
-              </button>
-            )}
-            <img
-              src={memory.images[currentImageIndex]}
-              alt={`${memory.title} - imagen ${currentImageIndex + 1}`}
-              className={styles.image}
-            />
-            {memory.images.length > 1 && (
-              <button
-                className={`${styles.navButton} ${styles.nextButton}`}
-                onClick={nextImage}
-              >
-                <ChevronRight size={24} />
-              </button>
-            )}
-          </div>
+          {memory.images && memory.images.length > 0 && (
+            <div className={styles.imageContainer}>
+              <img
+                src={memory.images[currentImageIndex]}
+                alt={`${memory.title} - imagen ${currentImageIndex + 1}`}
+                className={styles.image}
+              />
+              {memory.images.length > 1 && (
+                <>
+                  <button
+                    className={`${styles.navButton} ${styles.prevButton}`}
+                    onClick={prevImage}
+                    aria-label="Imagen anterior"
+                  >
+                    <ChevronLeft size={24} />
+                  </button>
+                  <button
+                    className={`${styles.navButton} ${styles.nextButton}`}
+                    onClick={nextImage}
+                    aria-label="Siguiente imagen"
+                  >
+                    <ChevronRight size={24} />
+                  </button>
+                </>
+              )}
+            </div>
+          )}
 
-          {memory.images.length > 1 && (
+          {memory.images && memory.images.length > 1 && (
             <div className={styles.imageDots}>
               {memory.images.map((_, index) => (
-                <span
+                <button
                   key={index}
                   className={`${styles.dot} ${
                     index === currentImageIndex ? styles.activeDot : ""
                   }`}
                   onClick={() => setCurrentImageIndex(index)}
-                ></span>
+                  aria-label={`Ir a la imagen ${index + 1}`}
+                />
               ))}
             </div>
           )}
 
-          <p className={styles.description}>{memory.description}</p>
+          <div className={styles.textContent}>
+            <p className={styles.description}>{memory.description}</p>
+          </div>
         </div>
       </div>
     </div>
