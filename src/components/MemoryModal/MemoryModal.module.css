@@ -10,13 +10,13 @@
   justify-content: center;
   z-index: 50;
   padding: 1rem;
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(5px);
   animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .modal {
   background: linear-gradient(
-    to bottom,
+    135deg,
     rgba(30, 41, 59, 0.95),
     rgba(15, 23, 42, 0.95)
   );
@@ -38,8 +38,8 @@
   background: rgba(255, 255, 255, 0.1);
   border: none;
   border-radius: 50%;
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -57,11 +57,6 @@
   padding: 2rem;
 }
 
-.header {
-  margin-bottom: 2rem;
-  padding-right: 2rem;
-}
-
 .title {
   font-size: 2rem;
   font-weight: 700;
@@ -76,20 +71,16 @@
   font-size: 0.875rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  margin-bottom: 1.5rem;
 }
 
-.imageGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1rem;
-  margin-bottom: 2rem;
-}
-
-.imageWrapper {
+.imageContainer {
   position: relative;
-  padding-top: 75%;
-  border-radius: 0.5rem;
+  width: 100%;
+  padding-top: 56.25%; /* 16:9 Aspect Ratio */
+  margin-bottom: 1.5rem;
   overflow: hidden;
+  border-radius: 0.5rem;
 }
 
 .image {
@@ -102,8 +93,55 @@
   transition: transform 0.3s ease;
 }
 
-.imageWrapper:hover .image {
-  transform: scale(1.05);
+.navButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.2s;
+  z-index: 10;
+}
+
+.navButton:hover {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.prevButton {
+  left: 1rem;
+}
+
+.nextButton {
+  right: 1rem;
+}
+
+.imageDots {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.3);
+  margin: 0 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.activeDot {
+  background-color: #fff;
+  transform: scale(1.2);
 }
 
 .description {
@@ -149,5 +187,10 @@
 
   .description {
     font-size: 1rem;
+  }
+
+  .navButton {
+    width: 32px;
+    height: 32px;
   }
 }
