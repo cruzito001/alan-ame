@@ -30,9 +30,10 @@ const CoreNames: React.FC<CoreNamesProps> = ({ initialYear }) => {
   }, []);
 
   useEffect(() => {
-    const filteredMemories = memories.filter(
-      (memory) => new Date(memory.date).getFullYear() === selectedYear
-    );
+    const filteredMemories = memories.filter((memory) => {
+      const date = new Date(memory.date + "T00:00:00Z");
+      return date.getUTCFullYear() === selectedYear;
+    });
 
     const generateRandomPosition = () => ({
       top: Math.random() * (window.innerHeight - 100),
@@ -44,9 +45,10 @@ const CoreNames: React.FC<CoreNamesProps> = ({ initialYear }) => {
     );
   }, [selectedYear]);
 
-  const filteredMemories = memories.filter(
-    (memory) => new Date(memory.date).getFullYear() === selectedYear
-  );
+  const filteredMemories = memories.filter((memory) => {
+    const date = new Date(memory.date + "T00:00:00Z");
+    return date.getUTCFullYear() === selectedYear;
+  });
 
   return (
     <div className={styles.container}>

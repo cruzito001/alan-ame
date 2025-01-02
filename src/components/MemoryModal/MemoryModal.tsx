@@ -20,11 +20,15 @@ const MemoryModal: React.FC<MemoryModalProps> = ({
 
   if (!isOpen) return null;
 
-  const formattedDate = new Date(memory.date).toLocaleDateString("es-ES", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
+  const formattedDate = new Date(memory.date + "T00:00:00Z").toLocaleDateString(
+    "es-ES",
+    {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      timeZone: "UTC",
+    }
+  );
 
   const nextImage = () => {
     setCurrentImageIndex((prevIndex) =>

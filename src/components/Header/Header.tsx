@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import YearSelector from "../YearSelector/YearSelector";
 import styles from "./Header.module.css";
 
@@ -12,7 +12,10 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ years, initialYear }) => {
   const [selectedYear, setSelectedYear] = useState(initialYear);
 
-  // Usamos un evento personalizado para comunicar el cambio de año
+  useEffect(() => {
+    setSelectedYear(initialYear);
+  }, [initialYear]);
+
   const handleYearChange = (year: number) => {
     setSelectedYear(year);
     window.dispatchEvent(new CustomEvent("yearChange", { detail: year }));

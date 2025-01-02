@@ -4,11 +4,12 @@ import CoreNames from '../components/CoreNames/CoreNames';
 import Header from '../components/Header/Header';
 import { memories } from '../data/memories';
 
-const years = [...new Set(memories.map(memory => 
-  new Date(memory.date).getFullYear()
-))].sort((a, b) => b - a);
+const years = [...new Set(memories.map(memory => {
+  const date = new Date(memory.date + 'T00:00:00Z');
+  return date.getUTCFullYear();
+}))].sort((a, b) => b - a);
 
-const initialYear = Math.max(...years);
+const initialYear = years[0] || new Date().getUTCFullYear();
 ---
 
 <Layout title="Alan y América - Nuestros Recuerdos">

@@ -59,4 +59,12 @@ export const memories: Memories = [
       "Segunda navidad de muchas juntos, te amo <3 pd. ya quiero que la hagamos de Santa Claus, mua <3",
     images: ["2024/navidad1.jpg", "2024/navidad2.jpg"],
   },
+  {
+    id: "7",
+    title: "Año Nuevo 2025",
+    date: "2025-01-01",
+    description:
+      "Siempre es y será bonito recibir el nuevo año a tu lado amorcito, gracias por todo el año pasado y espero que este 2025 esté lleno de recuerdos bonitos y que cada esferita en este año la abras y te saque una sonrisa del bonito momento que vivimos, te amo siempre. <3",
+    images: ["2025/newyear1.jpg", "2025/newyear2.jpg"],
+  },
 ];
