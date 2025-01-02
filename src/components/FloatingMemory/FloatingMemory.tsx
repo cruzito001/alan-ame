@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import styles from "./FloatingMemory.module.css";
 import type { Memory } from "../../types/memories";
 import MemoryModal from "../MemoryModal/MemoryModal";
+import { Film } from "lucide-react";
 
 interface FloatingMemoryProps {
   initialTop: number;
@@ -27,6 +28,8 @@ const FloatingMemory: React.FC<FloatingMemoryProps> = ({
     x: Math.random() * 2 - 1,
     y: Math.random() * 2 - 1,
   });
+
+  const hasVideo = memory.media.some((item) => item.type === "video");
 
   useEffect(() => {
     const memory = memoryRef.current;
@@ -73,7 +76,9 @@ const FloatingMemory: React.FC<FloatingMemoryProps> = ({
         }}
         onClick={() => setIsModalOpen(true)}
       >
-        <div className={styles.inner}></div>
+        <div className={styles.inner}>
+          {hasVideo && <Film size={16} className={styles.videoIcon} />}
+        </div>
       </div>
 
       <MemoryModal

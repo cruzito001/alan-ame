@@ -16,7 +16,7 @@ const MemoryModal: React.FC<MemoryModalProps> = ({
   isOpen,
   onClose,
 }) => {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [currentMediaIndex, setCurrentMediaIndex] = useState(0);
 
   if (!isOpen) return null;
 
@@ -30,16 +30,32 @@ const MemoryModal: React.FC<MemoryModalProps> = ({
     }
   );
 
-  const nextImage = () => {
-    setCurrentImageIndex((prevIndex) =>
-      prevIndex === memory.images.length - 1 ? 0 : prevIndex + 1
+  const nextMedia = () => {
+    setCurrentMediaIndex((prevIndex) =>
+      prevIndex === memory.media.length - 1 ? 0 : prevIndex + 1
     );
   };
 
-  const prevImage = () => {
-    setCurrentImageIndex((prevIndex) =>
-      prevIndex === 0 ? memory.images.length - 1 : prevIndex - 1
+  const prevMedia = () => {
+    setCurrentMediaIndex((prevIndex) =>
+      prevIndex === 0 ? memory.media.length - 1 : prevIndex - 1
     );
+  };
+
+  const renderMedia = () => {
+    const currentMedia = memory.media[currentMediaIndex];
+    if (currentMedia.type === "image") {
+      return (
+        <img
+          src={currentMedia.url}
+          alt={`${memory.title} - imagen ${currentMediaIndex + 1}`}
+          className={styles.image}
+        />
+      );
+    } else if (currentMedia.type === "video") {
+      return <video src={currentMedia.url} controls className={styles.video} />;
+    }
+    return null;
   };
 
   return (
@@ -57,26 +73,22 @@ const MemoryModal: React.FC<MemoryModalProps> = ({
           <h2 className={styles.title}>{memory.title}</h2>
           <time className={styles.date}>{formattedDate}</time>
 
-          {memory.images && memory.images.length > 0 && (
-            <div className={styles.imageContainer}>
-              <img
-                src={memory.images[currentImageIndex]}
-                alt={`${memory.title} - imagen ${currentImageIndex + 1}`}
-                className={styles.image}
-              />
-              {memory.images.length > 1 && (
+          {memory.media && memory.media.length > 0 && (
+            <div className={styles.mediaContainer}>
+              {renderMedia()}
+              {memory.media.length > 1 && (
                 <>
                   <button
                     className={`${styles.navButton} ${styles.prevButton}`}
-                    onClick={prevImage}
-                    aria-label="Imagen anterior"
+                    onClick={prevMedia}
+                    aria-label="Medio anterior"
                   >
                     <ChevronLeft size={24} />
                   </button>
                   <button
                     className={`${styles.navButton} ${styles.nextButton}`}
-                    onClick={nextImage}
-                    aria-label="Siguiente imagen"
+                    onClick={nextMedia}
+                    aria-label="Siguiente medio"
                   >
                     <ChevronRight size={24} />
                   </button>
@@ -85,16 +97,16 @@ const MemoryModal: React.FC<MemoryModalProps> = ({
             </div>
           )}
 
-          {memory.images && memory.images.length > 1 && (
-            <div className={styles.imageDots}>
-              {memory.images.map((_, index) => (
+          {memory.media && memory.media.length > 1 && (
+            <div className={styles.mediaDots}>
+              {memory.media.map((_, index) => (
                 <button
                   key={index}
                   className={`${styles.dot} ${
-                    index === currentImageIndex ? styles.activeDot : ""
+                    index === currentMediaIndex ? styles.activeDot : ""
                   }`}
-                  onClick={() => setCurrentImageIndex(index)}
-                  aria-label={`Ir a la imagen ${index + 1}`}
+                  onClick={() => setCurrentMediaIndex(index)}
+                  aria-label={`Ir al medio ${index + 1}`}
                 />
               ))}
             </div>

@@ -79,7 +79,7 @@
   margin-bottom: 1.5rem;
 }
 
-.imageContainer {
+.mediaContainer {
   position: relative;
   width: 100%;
   margin-bottom: 1.5rem;
@@ -91,7 +91,8 @@
   align-items: center;
 }
 
-.image {
+.image,
+.video {
   max-width: 100%;
   max-height: 70vh;
   width: auto;
@@ -129,7 +130,7 @@
   right: 1rem;
 }
 
-.imageDots {
+.mediaDots {
   display: flex;
   justify-content: center;
   margin-bottom: 1.5rem;
@@ -208,10 +209,11 @@
   .overlay {
     padding: 0.5rem;
   }
-  .imageContainer {
+  .mediaContainer {
     max-height: 50vh;
   }
-  .image {
+  .image,
+  .video {
     max-height: 50vh;
   }
 }
