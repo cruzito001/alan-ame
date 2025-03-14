@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { ChevronDown } from "lucide-react";
 import styles from "./YearSelector.module.css";
 
@@ -16,14 +16,29 @@ const YearSelector: React.FC<YearSelectorProps> = ({
   onYearChange,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const handleYearClick = (year: number) => {
     onYearChange(year);
     setIsOpen(false);
   };
 
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   return (
-    <div className={styles.container}>
+    <div className={styles.container} ref={dropdownRef}>
       <button
         className={styles.selector}
         onClick={() => setIsOpen(!isOpen)}
@@ -32,7 +47,6 @@ const YearSelector: React.FC<YearSelectorProps> = ({
       >
         {selectedYear}
         <ChevronDown
-          size={16}
           className={`${styles.icon} ${isOpen ? styles.iconOpen : ""}`}
           aria-hidden="true"
         />
